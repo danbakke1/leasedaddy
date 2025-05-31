@@ -1,0 +1,24 @@
+{
+  "name": "langflow-twilio-voice",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --env-file=.env ./src/index.js | pino-colada",
+    "dev": "node --env-file=.env --watch --watch-preserve-output ./src/index.js | pino-colada"
+  },
+  "keywords": [],
+  "author": "Phil Nash <phil.nash@datastax.com> (https://langflow.org)",
+  "license": "MIT",
+  "type": "module",
+  "description": "",
+  "dependencies": {
+    "@datastax/langflow-client": "^0.2.1",
+    "@fastify/formbody": "^8.0.2",
+    "@fastify/websocket": "^11.1.0",
+    "fastify": "^5.3.3",
+    "twilio": "^5.6.1"
+  },
+  "devDependencies": {
+    "pino-colada": "^2.2.2"
+  }
+}
