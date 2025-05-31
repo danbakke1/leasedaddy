@@ -6,7 +6,8 @@ import ChatInterface from "@/components/chat-interface"
 import EmailDrafter from "@/components/email-drafter"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { AlertTriangle, MessageCircle, FileText, DraftingCompass, Sparkles, Home, FileBadge } from "lucide-react" // Keep Home and FileBadge
+import { AlertTriangle, MessageCircle, FileText, DraftingCompass, Sparkles, Home, FileBadge, Heart } from "lucide-react" // Keep Home and FileBadge
+import LangflowChatInterface from "@/components/langflow-chat-interface"
 
 export default function HomePage() {
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null)
@@ -34,7 +35,7 @@ export default function HomePage() {
       </header>
 
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full max-w-3xl mx-auto">
-        <TabsList className="grid w-full grid-cols-3 mb-6 bg-slate-100 border border-slate-200 rounded-lg p-1">
+        <TabsList className="grid w-full grid-cols-4 mb-6 bg-slate-100 border border-slate-200 rounded-lg p-1">
           <TabsTrigger
             value="analyze"
             className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md py-2 text-slate-600"
@@ -54,6 +55,13 @@ export default function HomePage() {
             className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500 data-[state=active]:to-pink-500 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md py-2 text-slate-600 disabled:opacity-50"
           >
             <MessageCircle className="w-4 h-4 mr-2" /> AI Coach
+          </TabsTrigger>
+          <TabsTrigger
+            value="talktodaddy"
+            // This tab is always enabled as it doesn't depend on prior analysis
+            className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-pink-500 data-[state=active]:to-sky-500 data-[state=active]:text-white data-[state=active]:shadow-md rounded-md py-2 text-slate-600"
+          >
+            <Heart className="w-4 h-4 mr-2" /> Talk to Daddy
           </TabsTrigger>
         </TabsList>
 
@@ -159,6 +167,21 @@ export default function HomePage() {
                 leaseContext={analysisResult?.redFlags ? JSON.stringify(analysisResult.redFlags) : undefined}
                 leaseUrl={uploadedLeaseUrl}
               />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="talktodaddy">
+          <Card className="bg-white border-slate-200 shadow-xl rounded-xl">
+            <CardHeader>
+              <CardTitle className="text-2xl text-slate-800">Deep Analysis with LeaseDaddy</CardTitle>
+              <CardDescription className="text-slate-500">
+                Chat with our knowledge base of anonymized leases to understand what's typical, fair, or unusual in
+                rental agreements.
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <LangflowChatInterface />
             </CardContent>
           </Card>
         </TabsContent>
